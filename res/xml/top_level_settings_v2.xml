@@ -41,30 +41,15 @@
 
     </com.android.settings.preferences.AutoHidePreferenceCategory>
 
-    <PreferenceCategory
-        android:order="-130"
-        android:key="top_level_connectivity_category"
-        android:layout="@layout/settingslib_preference_category_no_title">
-        <com.android.settings.widget.HomepagePreference
-            android:fragment="com.android.settings.network.NetworkDashboardFragment"
-            android:icon="@drawable/ic_custom_wireless"
-            android:key="top_level_network"
-            android:order="-20"
-            android:title="@string/network_dashboard_title"
-            android:summary="@string/summary_placeholder"
-            settings:highlightableMenuKey="@string/menu_key_network"
-            settings:controller="com.android.settings.network.TopLevelNetworkEntryPreferenceController"/>
+        <com.android.settingslib.widget.LayoutPreference
+            android:key="themes_highlight_dashboard"
+            android:layout="@layout/themes_highlight_dashboard"
+            android:selectable="false"/>
 
-        <com.android.settings.widget.HomepagePreference
-            android:fragment="com.android.settings.connecteddevice.ConnectedDeviceDashboardFragment"
-            android:icon="@drawable/ic_custom_devices"
-            android:key="top_level_connected_devices"
-            android:order="-10"
-            android:title="@string/connected_devices_dashboard_title"
-            android:summary="@string/connected_devices_dashboard_default_summary"
-            settings:highlightableMenuKey="@string/menu_key_connected_devices"
-            settings:controller="com.android.settings.connecteddevice.TopLevelConnectedDevicesPreferenceController"/>
-    </PreferenceCategory>
+        <com.android.settings.utils.SystemStatsPreference
+            android:key="omega_design_dashboard"
+            android:layout="@layout/omega_design_dashboard"
+            android:selectable="false"/>
 
     <PreferenceCategory
         android:order="-125"
