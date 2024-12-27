@@ -149,8 +149,10 @@ public class TopLevelSettings extends DashboardFragment implements SplitLayoutLi
     }
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Logic from the second method
         mIsEmbeddingActivityEnabled =
                 ActivityEmbeddingUtils.isEmbeddingActivityEnabled(getContext());
         if (!mIsEmbeddingActivityEnabled) {
@@ -158,8 +160,8 @@ public class TopLevelSettings extends DashboardFragment implements SplitLayoutLi
         }
 
         boolean activityEmbedded = isActivityEmbedded();
-        if (icicle != null) {
-            mHighlightMixin = icicle.getParcelable(SAVED_HIGHLIGHT_MIXIN);
+        if (savedInstanceState != null) {
+            mHighlightMixin = savedInstanceState.getParcelable(SAVED_HIGHLIGHT_MIXIN);
             if (mHighlightMixin != null) {
                 mScrollNeeded = !mHighlightMixin.isActivityEmbedded() && activityEmbedded;
                 mHighlightMixin.setActivityEmbedded(activityEmbedded);
@@ -167,6 +169,21 @@ public class TopLevelSettings extends DashboardFragment implements SplitLayoutLi
         }
         if (mHighlightMixin == null) {
             mHighlightMixin = new TopLevelHighlightMixin(activityEmbedded);
+        }
+
+        // Logic from the first method
+        addPreferencesFromResource(R.xml.top_level_settings_v2);
+
+        com.android.settingslib.widget.LayoutPreference highlightPref = 
+                getPreferenceScreen().findPreference("first_settings_cards");
+        if (highlightPref != null) {
+            java.util.Map<Integer, String> highlightClickMap = new java.util.HashMap<>();
+            highlightClickMap.put(R.id.boot_styles_tile, "PersonalizationsBSActivity");
+            highlightClickMap.put(R.id.icon_pack_tile, "PersonalizationsIconPackActivity");
+            highlightClickMap.put(R.id.settings_tile, "PersonalizationsSettingsUIActivity");
+            highlightClickMap.put(R.id.wallpaper_styles_tile, "PersonalizationsWSActivity");
+            com.android.settings.utils.HighlightPrefUtils.Companion.setupHighlightPref(
+                    getContext(), highlightPref, highlightClickMap);
         }
     }
 

@@ -215,11 +215,20 @@
         
         <!-- WS -->
         <activity android:name="Settings$PersonalizationsWSActivity"
-                  android:label="@string/wallpaper_settings_title"
-                  android:icon="@drawable/ic_color_bucket"
+                  android:label="@string/connected_devices_dashboard_title"
+                  android:icon="@drawable/ic_homepage_connected_device"
                   android:exported="true">
+            <intent-filter android:priority="1">
+                <action android:name="android.settings.BLUETOOTH_SETTINGS" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
             <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
-                       android:value="com.rising.settings.fragments.Wallpaper" />
+                android:value="com.android.settings.connecteddevice.ConnectedDeviceDashboardFragment"/>
+            <meta-data android:name="com.android.settings.HIGHLIGHT_MENU_KEY"
+                android:value="@string/menu_key_connected_devices"/>
+            <meta-data android:name="com.android.settings.PRIMARY_PROFILE_CONTROLLED"
+                android:value="true" />
         </activity>
 
         <receiver
